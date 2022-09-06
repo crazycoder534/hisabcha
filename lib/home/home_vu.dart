@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hisabcha/home/home_vm.dart';
+import 'package:hisabcha/utils/constants.dart';
+import 'package:hisabcha/utils/h_router.dart';
 import 'package:hisabcha/utils/widgets.dart';
 import 'package:stacked/stacked.dart';
+
+import 'add_item/add_item_vu.dart';
 
 class HomeView extends ViewModelBuilderWidget<HomeViewModel> {
   const HomeView({Key? key}) : super(key: key);
@@ -25,7 +29,7 @@ class HomeView extends ViewModelBuilderWidget<HomeViewModel> {
                       title: Text(data.name),
                       subtitle: Text(data.category),
                       leading: CircleAvatar(
-                        backgroundColor: Colors.purple[100],
+                        backgroundColor: lightPurple,
                         child: Text(data.id.toString()),
                       ),
                       trailing: Text(data.price.toString()),
@@ -33,15 +37,15 @@ class HomeView extends ViewModelBuilderWidget<HomeViewModel> {
                         Row(
                           children: [
                             iconButton(
-                              color: Colors.green[50],
+                              color: lightGreen,
                               lable: 'Edit',
-                              lableColor: Colors.green,
+                              lableColor: green,
                             ),
                             const SizedBox(width: 8),
                             iconButton(
-                              color: Colors.red[50],
+                              color: lightRed,
                               lable: 'Delete',
-                              lableColor: Colors.red,
+                              lableColor: red,
                               onTap: () => viewModel.deleteItem(index),
                             ),
                           ],
@@ -52,7 +56,8 @@ class HomeView extends ViewModelBuilderWidget<HomeViewModel> {
                 );
               }),
       floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {}, label: const Text('Add Item')),
+          onPressed: () => HRouter.push(context, const AddNewItemScreen()),
+          label: const Text('Add Item')),
     );
   }
 

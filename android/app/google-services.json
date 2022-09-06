@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "835160757399",
+    "project_id": "hisabcha",
+    "storage_bucket": "hisabcha.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:835160757399:android:48d7780e7d3cba0f0345d2",
+        "android_client_info": {
+          "package_name": "com.example.hisabcha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "835160757399-ofhod9hr2tglvkbm5kfgqk389tkps3ud.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAN4Jejbzn21XfTswqvC3erSaGpIYPQpYs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "835160757399-ofhod9hr2tglvkbm5kfgqk389tkps3ud.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
