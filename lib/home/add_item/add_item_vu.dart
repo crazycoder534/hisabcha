@@ -13,65 +13,68 @@ class AddNewItemScreen extends ViewModelBuilderWidget<AddNewItemVM> {
   Widget builder(BuildContext context, AddNewItemVM viewModel, Widget? child) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Form(
-            key: viewModel.formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('What did you eat today?',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5!
-                        .copyWith(color: purple)),
-                bigSpace,
-                imageContainer(),
-                bigSpace,
-                Expanded(
-                  child: Center(
-                    child: ListView(
-                      shrinkWrap: true,
-                      children: [
-                        header('Item Name'),
-                        space,
-                        HTextField(
-                          hintText: 'Enter Item Name',
-                          validator: viewModel.nameValidator,
-                          onSaved: viewModel.onNameSaved,
-                        ),
-                        bigSpace,
-                        header('Price'),
-                        space,
-                        HTextField(
-                          hintText: 'Enter Item Price',
-                          keyboardType: TextInputType.number,
-                          validator: viewModel.priceValidator,
-                          onSaved: viewModel.onPriceSaved,
-                        ),
-                        bigSpace,
-                        header('Category'),
-                        space,
-                        GestureDetector(
-                          onTap: () => buildBottomSheet(context, viewModel)
-                              .then((category) {
-                            viewModel.category = category;
-                            viewModel.notifyListeners();
-                          }),
-                          child: HTextField(
-                            hintText: viewModel.category ?? 'Select Category',
-                            enabled: false,
-                            // validator: viewModel.categoryValidator,
-                            onSaved: viewModel.onCategorySaved,
+        child: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Form(
+              key: viewModel.formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('What did you eat today?',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline5!
+                          .copyWith(color: purple)),
+                  bigSpace,
+                  imageContainer(),
+                  bigSpace,
+                  Expanded(
+                    child: Center(
+                      child: ListView(
+                        shrinkWrap: true,
+                        children: [
+                          header('Item Name'),
+                          space,
+                          HTextField(
+                            hintText: 'Enter Item Name',
+                            validator: viewModel.nameValidator,
+                            onSaved: viewModel.onNameSaved,
                           ),
-                        ),
-                        bigSpace,
-                        saveButton(viewModel, context),
-                      ],
+                          bigSpace,
+                          header('Price'),
+                          space,
+                          HTextField(
+                            hintText: 'Enter Item Price',
+                            keyboardType: TextInputType.number,
+                            validator: viewModel.priceValidator,
+                            onSaved: viewModel.onPriceSaved,
+                          ),
+                          bigSpace,
+                          header('Category'),
+                          space,
+                          GestureDetector(
+                            onTap: () => buildBottomSheet(context, viewModel)
+                                .then((category) {
+                              viewModel.category = category;
+                              viewModel.notifyListeners();
+                            }),
+                            child: HTextField(
+                              hintText: viewModel.category ?? 'Select Category',
+                              enabled: false,
+                              // validator: viewModel.categoryValidator,
+                              onSaved: viewModel.onCategorySaved,
+                            ),
+                          ),
+                          bigSpace,
+                          saveButton(viewModel, context),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
