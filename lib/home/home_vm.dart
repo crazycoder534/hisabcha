@@ -2,6 +2,7 @@ import 'package:hisabcha/home/model.dart';
 import 'package:stacked/stacked.dart';
 
 class HomeViewModel extends BaseViewModel {
+  DateTime time = DateTime.now();
   List<Data> data = [
     Data(1, 'Naan Chaney', 'Nashta', 2000),
     Data(2, 'Naan Chaney', 'Nashta', 2000),
@@ -17,5 +18,16 @@ class HomeViewModel extends BaseViewModel {
   deleteItem(int index) {
     data.removeAt(index);
     notifyListeners();
+  }
+
+  String greetings() {
+    if (time.hour > 11) {
+      return "Good Afternoon";
+    }
+    if (time.hour > 16) {
+      return "Good Evening";
+    } else {
+      return "Good Morning";
+    }
   }
 }

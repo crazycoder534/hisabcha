@@ -9,3 +9,6 @@ var lightRed = Colors.red[50];
 
 SizedBox space = const SizedBox(height: 8);
 SizedBox bigSpace = const SizedBox(height: 16);
+OutlineInputBorder outlineInputBorder = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(8),
+    borderSide: const BorderSide(color: purple, width: 1));

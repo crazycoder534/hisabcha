@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class HRouter {
-  static push(BuildContext context, Widget destination) {
-    Navigator.push(
+  static Future push(BuildContext context, Widget destination) {
+    return Navigator.push(
         context, CupertinoPageRoute(builder: (context) => destination));
   }
 

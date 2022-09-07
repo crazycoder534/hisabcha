@@ -33,6 +33,7 @@ class HTextField extends StatelessWidget {
   void Function(String?)? onSaved;
   final bool enabled;
   final String? value;
+  final String? Function(String?)? validator;
   final TextInputType? keyboardType;
   HTextField({
     this.hintText,
@@ -41,32 +42,33 @@ class HTextField extends StatelessWidget {
     Key? key,
     this.value,
     this.keyboardType,
+    this.validator,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: lightPurple!),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: TextFormField(
-        keyboardType: keyboardType,
-        style: enabled ? null : const TextStyle(color: purple),
-        enabled: enabled,
-        onSaved: onSaved,
-        textAlignVertical: enabled ? null : TextAlignVertical.center,
-        decoration: InputDecoration(
-          hintText: value ?? hintText,
-          suffixIcon: enabled
-              ? null
-              : const Icon(Icons.arrow_drop_down_circle_outlined,
-                  color: purple),
-          hintStyle: TextStyle(color: lightPurple),
-          border: InputBorder.none,
-        ),
+    return TextFormField(
+      keyboardType: keyboardType,
+      style: const TextStyle(color: purple),
+      enabled: enabled,
+      onSaved: onSaved,
+      validator: validator,
+      textAlignVertical: enabled ? null : TextAlignVertical.center,
+      decoration: InputDecoration(
+        labelText: value ?? hintText,
+        labelStyle: const TextStyle(color: purple),
+        suffixIcon: enabled
+            ? null
+            : const Icon(Icons.arrow_drop_down_circle_outlined, color: purple),
+        hintStyle: TextStyle(color: lightPurple),
+        border: outlineInputBorder,
+        enabledBorder: outlineInputBorder,
+        disabledBorder: outlineInputBorder,
+        focusedBorder: outlineInputBorder,
+        errorBorder: outlineInputBorder,
+        focusedErrorBorder: outlineInputBorder,
+        filled: true,
+        fillColor: const Color.fromARGB(255, 251, 246, 253),
       ),
     );
   }
@@ -75,4 +77,9 @@ class HTextField extends StatelessWidget {
 Widget header(String title) {
   return Text(title,
       style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold));
+}
+
+toaster(BuildContext context, String msg) {
+  return ScaffoldMessenger.of(context)
+      .showSnackBar(SnackBar(content: Text(msg)));
 }

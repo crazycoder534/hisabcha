@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hisabcha/home/home_vm.dart';
 import 'package:hisabcha/utils/constants.dart';
-import 'package:hisabcha/utils/h_router.dart';
 import 'package:hisabcha/utils/widgets.dart';
 import 'package:stacked/stacked.dart';
 
+import '../utils/h_router.dart';
 import 'add_item/add_item_vu.dart';
 
 class HomeView extends ViewModelBuilderWidget<HomeViewModel> {
@@ -13,10 +13,15 @@ class HomeView extends ViewModelBuilderWidget<HomeViewModel> {
   @override
   Widget builder(BuildContext context, HomeViewModel viewModel, Widget? child) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Hisabcha')),
+      appBar: AppBar(
+        title: Text('${viewModel.greetings()}, Ali'),
+        centerTitle: true,
+        elevation: 0,
+      ),
       body: viewModel.data.isEmpty
           ? const Center(child: Text('Add some items'))
           : ListView.builder(
+              reverse: true,
               itemCount: viewModel.data.length,
               itemBuilder: (context, index) {
                 final data = viewModel.data[index];
@@ -56,7 +61,11 @@ class HomeView extends ViewModelBuilderWidget<HomeViewModel> {
                 );
               }),
       floatingActionButton: FloatingActionButton.extended(
-          onPressed: () => HRouter.push(context, const AddNewItemScreen()),
+          onPressed: () =>
+              HRouter.push(context, const AddNewItemScreen()).then((data) {
+                viewModel.data.add(data);
+                viewModel.notifyListeners();
+              }),
           label: const Text('Add Item')),
     );
   }
