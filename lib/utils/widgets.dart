@@ -33,8 +33,10 @@ class HTextField extends StatelessWidget {
   void Function(String?)? onSaved;
   final bool enabled;
   final String? value;
+  final TextEditingController? controller;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
+  final String? initialValue;
   HTextField({
     this.hintText,
     this.onSaved,
@@ -43,11 +45,15 @@ class HTextField extends StatelessWidget {
     this.value,
     this.keyboardType,
     this.validator,
+    this.initialValue,
+    this.controller,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
+      initialValue: initialValue,
       keyboardType: keyboardType,
       style: const TextStyle(color: purple),
       enabled: enabled,
@@ -79,7 +85,8 @@ Widget header(String title) {
       style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold));
 }
 
-toaster(BuildContext context, String msg) {
-  return ScaffoldMessenger.of(context)
-      .showSnackBar(SnackBar(content: Text(msg)));
+toaster(BuildContext context, String msg, [Color? backgroundColor]) {
+  return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(msg, textAlign: TextAlign.center),
+      backgroundColor: backgroundColor));
 }

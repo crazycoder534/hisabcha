@@ -7,7 +7,12 @@ import '../../utils/constants.dart';
 import '../../utils/widgets.dart';
 
 class AddNewItemScreen extends ViewModelBuilderWidget<AddNewItemVM> {
-  const AddNewItemScreen({Key? key}) : super(key: key);
+  final String? initialName;
+  final String? initialPrice;
+  final String? initialCategory;
+  const AddNewItemScreen(
+      {this.initialName, this.initialPrice, this.initialCategory, Key? key})
+      : super(key: key);
 
   @override
   Widget builder(BuildContext context, AddNewItemVM viewModel, Widget? child) {
@@ -39,6 +44,7 @@ class AddNewItemScreen extends ViewModelBuilderWidget<AddNewItemVM> {
                           space,
                           HTextField(
                             hintText: 'Enter Item Name',
+                            initialValue: initialName,
                             validator: viewModel.nameValidator,
                             onSaved: viewModel.onNameSaved,
                           ),
@@ -46,6 +52,7 @@ class AddNewItemScreen extends ViewModelBuilderWidget<AddNewItemVM> {
                           header('Price'),
                           space,
                           HTextField(
+                            initialValue: initialPrice,
                             hintText: 'Enter Item Price',
                             keyboardType: TextInputType.number,
                             validator: viewModel.priceValidator,
@@ -55,13 +62,16 @@ class AddNewItemScreen extends ViewModelBuilderWidget<AddNewItemVM> {
                           header('Category'),
                           space,
                           GestureDetector(
-                            onTap: () => buildBottomSheet(context, viewModel)
-                                .then((category) {
-                              viewModel.category = category;
-                              viewModel.notifyListeners();
-                            }),
+                            onTap: () {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                              buildBottomSheet(context, viewModel)
+                                  .then(viewModel.getCategory);
+                            },
                             child: HTextField(
-                              hintText: viewModel.category ?? 'Select Category',
+                              // initialValue: viewModel.category ??
+                              hintText: viewModel.category ??
+                                  initialCategory ??
+                                  'Select Category',
                               enabled: false,
                               // validator: viewModel.categoryValidator,
                               onSaved: viewModel.onCategorySaved,
@@ -91,8 +101,7 @@ class AddNewItemScreen extends ViewModelBuilderWidget<AddNewItemVM> {
 GestureDetector saveButton(AddNewItemVM viewModel, BuildContext context) {
   return GestureDetector(
     onTap: () {
-      viewModel.onSave();
-      Navigator.pop(context, viewModel.data);
+      viewModel.onSave(context);
     },
     child: Container(
       alignment: Alignment.center,

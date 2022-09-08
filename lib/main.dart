@@ -1,8 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hisabcha/splash/splash_vu.dart';
 import 'package:hisabcha/utils/constants.dart';
-
-import 'home/home_vu.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +17,7 @@ class Hisabcha extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: purple),
-      home: const HomeView(),
+      home: const SplashScreen(),
     );
   }
 }

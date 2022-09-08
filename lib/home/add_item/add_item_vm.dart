@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hisabcha/home/model.dart';
+import 'package:hisabcha/utils/constants.dart';
+import 'package:hisabcha/utils/widgets.dart';
 import 'package:stacked/stacked.dart';
 
 class AddNewItemVM extends BaseViewModel {
@@ -8,13 +10,23 @@ class AddNewItemVM extends BaseViewModel {
   String? name;
   double? price;
   String? category;
-  onSave() {
+  onSave(BuildContext context) {
     if (formKey.currentState!.validate()) {
-      formKey.currentState!.save();
-      data.name = name!;
-      data.category = category!;
-      data.price = price!;
+      if (category != null) {
+        formKey.currentState!.save();
+        data.name = name!;
+        data.category = category!;
+        data.price = price!;
+        Navigator.pop(context, data);
+      } else {
+        toaster(context, 'Select food category', purple);
+      }
     }
+  }
+
+  getCategory(category) {
+    this.category = category;
+    notifyListeners();
   }
 
   void onNameSaved(name) {
@@ -29,6 +41,7 @@ class AddNewItemVM extends BaseViewModel {
 
   void onCategorySaved(category) {
     category = this.category;
+    this.category = category;
     print('=====================>$category');
   }
 

@@ -19,9 +19,15 @@ class HomeView extends ViewModelBuilderWidget<HomeViewModel> {
         elevation: 0,
       ),
       body: viewModel.data.isEmpty
-          ? const Center(child: Text('Add some items'))
+          ? Column(
+              children: [
+                LinearProgressIndicator(backgroundColor: lightPurple),
+                const Spacer(),
+                const Text('Add some items'),
+                const Spacer(),
+              ],
+            )
           : ListView.builder(
-              reverse: true,
               itemCount: viewModel.data.length,
               itemBuilder: (context, index) {
                 final data = viewModel.data[index];
@@ -45,6 +51,15 @@ class HomeView extends ViewModelBuilderWidget<HomeViewModel> {
                               color: lightGreen,
                               lable: 'Edit',
                               lableColor: green,
+                              onTap: () => HRouter.push(
+                                      context,
+                                      AddNewItemScreen(
+                                        initialName: data.name,
+                                        initialPrice: data.price.toString(),
+                                        initialCategory: data.category,
+                                      ))
+                                  .then((item) =>
+                                      viewModel.editItem(item, index)),
                             ),
                             const SizedBox(width: 8),
                             iconButton(
@@ -61,11 +76,8 @@ class HomeView extends ViewModelBuilderWidget<HomeViewModel> {
                 );
               }),
       floatingActionButton: FloatingActionButton.extended(
-          onPressed: () =>
-              HRouter.push(context, const AddNewItemScreen()).then((data) {
-                viewModel.data.add(data);
-                viewModel.notifyListeners();
-              }),
+          onPressed: () => HRouter.push(context, const AddNewItemScreen())
+              .then(viewModel.addItem),
           label: const Text('Add Item')),
     );
   }
