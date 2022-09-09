@@ -5,32 +5,30 @@ import 'package:hisabcha/utils/widgets.dart';
 import 'package:stacked/stacked.dart';
 
 import '../utils/h_router.dart';
+import '../utils/loading_spinner.dart';
 import 'add_item/add_item_vu.dart';
 
 class HomeView extends ViewModelBuilderWidget<HomeViewModel> {
-  const HomeView({Key? key}) : super(key: key);
+  final String name;
+  const HomeView(this.name, {Key? key}) : super(key: key);
 
   @override
   Widget builder(BuildContext context, HomeViewModel viewModel, Widget? child) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${viewModel.greetings()}, Ali'),
+        title: Text('${viewModel.greetings()}, ${name.split(' ').first}'),
         centerTitle: true,
         elevation: 0,
       ),
-      body: viewModel.data.isEmpty
-          ? Column(
-              children: [
-                LinearProgressIndicator(backgroundColor: lightPurple),
-                const Spacer(),
-                const Text('Add some items'),
-                const Spacer(),
-              ],
-            )
-          : ListView.builder(
-              itemCount: viewModel.data.length,
+      body: LoadingSpinner(
+        loading: viewModel.isBusy || viewModel.items.isEmpty,
+        linear: true,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 64),
+          child: ListView.builder(
+              itemCount: viewModel.items.length,
               itemBuilder: (context, index) {
-                final data = viewModel.data[index];
+                final data = viewModel.items[index];
                 return Card(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -75,10 +73,24 @@ class HomeView extends ViewModelBuilderWidget<HomeViewModel> {
                   ),
                 );
               }),
-      floatingActionButton: FloatingActionButton.extended(
-          onPressed: () => HRouter.push(context, const AddNewItemScreen())
-              .then(viewModel.addItem),
-          label: const Text('Add Item')),
+        ),
+      ),
+      // floatingActionButton:
+      bottomSheet: GestureDetector(
+        onTap: () => HRouter.push(context, const AddNewItemScreen())
+            .then(viewModel.addItem),
+        child: Container(
+          color: purple,
+          width: double.infinity,
+          padding: const EdgeInsets.all(22),
+          child: const Text('Add Item',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold)),
+        ),
+      ),
     );
   }
 

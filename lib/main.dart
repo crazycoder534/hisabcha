@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:hisabcha/splash/splash_vu.dart';
+import 'package:hisabcha/register/register_vu.dart';
 import 'package:hisabcha/utils/constants.dart';
 
 Future<void> main() async {
@@ -16,8 +16,9 @@ class Hisabcha extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: purple),
-      home: const SplashScreen(),
+      theme:
+          ThemeData(primarySwatch: purple, scaffoldBackgroundColor: purple[50]),
+      home: const RegisterScreen(),
     );
   }
 }

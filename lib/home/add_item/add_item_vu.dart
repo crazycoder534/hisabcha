@@ -100,17 +100,13 @@ class AddNewItemScreen extends ViewModelBuilderWidget<AddNewItemVM> {
 
 GestureDetector saveButton(AddNewItemVM viewModel, BuildContext context) {
   return GestureDetector(
-    onTap: () {
-      viewModel.onSave(context);
-    },
+    onTap: () => viewModel.onSave(context),
     child: Container(
       alignment: Alignment.center,
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 12),
-      decoration: BoxDecoration(
-        color: purple,
-        borderRadius: BorderRadius.circular(8),
-      ),
+      decoration:
+          BoxDecoration(color: purple, borderRadius: BorderRadius.circular(8)),
       child: const Text('Save',
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),

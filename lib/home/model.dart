@@ -1,22 +1,22 @@
-class Data {
-  int? id;
+class Item {
+  late int id;
   String name = '';
   String category = '';
   double price = 0.0;
-  Data(this.id, this.name, this.category, this.price);
+  Item(this.id, this.name, this.category, this.price);
 
-  Data.fromFirebase(Map<String, dynamic> data) {
-    id = data['id'];
-    name = data['name'];
-    category = data['category'];
-    price = data['price'];
+  Item.fromFirebase(Map<String, dynamic> item) {
+    id = item['id'];
+    name = item['name'];
+    category = item['category'];
+    price = item['price'];
   }
   Map<String, dynamic> toFirebase() {
-    Map<String, dynamic> data = {};
-    data['id'] = id;
-    data['name'] = name;
-    data['category'] = category;
-    data['price'] = price;
-    return data;
+    Map<String, dynamic> item = {};
+    item['id'] = id;
+    item['name'] = name;
+    item['category'] = category;
+    item['price'] = price;
+    return item;
   }
 }

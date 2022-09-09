@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:hisabcha/home/model.dart';
 import 'package:hisabcha/utils/constants.dart';
 import 'package:hisabcha/utils/widgets.dart';
 import 'package:stacked/stacked.dart';
+
+import '../model.dart';
 
 class AddNewItemVM extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
@@ -14,10 +15,10 @@ class AddNewItemVM extends BaseViewModel {
     if (formKey.currentState!.validate()) {
       if (category != null) {
         formKey.currentState!.save();
-        data.name = name!;
-        data.category = category!;
-        data.price = price!;
-        Navigator.pop(context, data);
+        item.name = name!;
+        item.category = category!;
+        item.price = price!;
+        Navigator.pop(context, item);
       } else {
         toaster(context, 'Select food category', purple);
       }
@@ -69,7 +70,7 @@ class AddNewItemVM extends BaseViewModel {
     }
   }
 
-  Data data = Data(0, '', '', 0.0);
+  Item item = Item(0, '', '', 0.0);
   List<String> categories = [
     'Pizza',
     'Chawal',
