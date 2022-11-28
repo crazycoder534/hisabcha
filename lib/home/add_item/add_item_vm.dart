@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:hisabcha/utils/constants.dart';
 import 'package:hisabcha/utils/widgets.dart';
@@ -32,18 +34,18 @@ class AddNewItemVM extends BaseViewModel {
 
   void onNameSaved(name) {
     this.name = name;
-    print('=====================> $name');
+    log('=====================> $name');
   }
 
   void onPriceSaved(price) {
     this.price = double.tryParse(price);
-    print('=====================>$price');
+    log('=====================>$price');
   }
 
   void onCategorySaved(category) {
     category = this.category;
     this.category = category;
-    print('=====================>$category');
+    log('=====================>$category');
   }
 
   String? nameValidator(value) {

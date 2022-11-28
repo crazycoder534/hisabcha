@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/cupertino.dart';
 import 'package:hisabcha/auth/auth.dart';
 import 'package:hisabcha/utils/h_router.dart';
