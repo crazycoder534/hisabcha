@@ -74,17 +74,11 @@ class AddNewItemVM extends BaseViewModel {
 
   Item item = Item(0, '', '', 0.0);
   List<String> categories = [
-    'Pizza',
-    'Chawal',
-    'Karahi',
-    'Nihari',
-    'Daal/Chaney',
-    'Qourma',
-    'Fast Food',
-    'Sabzi',
-    'Shake',
-    'Lassi',
-    'Pulao',
-    'Other',
+    'Breakfast',
+    'Lunch',
+    'Dinner',
+    'Brunch',
+    'Fruits',
+    'Extra Expenses',
   ];
 }
